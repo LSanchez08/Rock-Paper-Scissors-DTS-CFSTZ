@@ -18,4 +18,5 @@ Trainning mode:
 
 Game:
 - python src\play.py
+- Press "q" to exit.
 
