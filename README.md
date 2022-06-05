@@ -8,4 +8,14 @@ First time run:
   - pip install -r requirements.txt
 3. Substitute the file venv/Lib/site-packages/keras_squeezenet/squeezenet.py for substitute/squeezenet.py
 
+Capture mode:
+- python src\gather_images.py ${rock, paper, scissors or none} ${number of captures}
+- Press "o" to start capture.
+- Press "q" to exit.
+
+Trainning mode:
+- python src\train.py
+
+Game:
+- python src\play.py
 

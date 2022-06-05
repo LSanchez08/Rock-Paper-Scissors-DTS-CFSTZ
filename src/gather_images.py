@@ -40,10 +40,15 @@ except FileExistsError:
 
 cap = cv2.VideoCapture(0)
 
+def make_720p():
+    cap.set(3, 1280)
+    cap.set(4, 720)
+
 start = False
 count = 0
 
 while True:
+    make_720p()
     ret, frame = cap.read()
     if not ret:
         continue
