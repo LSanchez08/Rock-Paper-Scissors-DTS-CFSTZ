@@ -16,6 +16,7 @@ REV_CLASS_MAP = {
     5: "end"
 }
 gameStarted = 0
+gameReady = 0
 
 def mapper(val):
     return REV_CLASS_MAP[val]
@@ -80,10 +81,11 @@ def make_720p():
 prev_move = None
 computer_move_name = 'none'
 winner = 'Waiting...'
+k = ''
     
 
 while True:
-    k = cv2.waitKey(10)
+
     make_720p()
     ret, frame = cap.read()
     if not ret:
@@ -101,27 +103,30 @@ while True:
 
     # predict the move made
     user_move_name = getUserMove(model)
-
+    if gameReady == 0 and user_move_name == 'start':
+        gameReady = 1
     # predict the winner (human vs computer)
-    if prev_move != user_move_name:
-        if user_move_name != "none":
-            if user_move_name == "start" and gameStarted == 0:
-                gameStarted = 1
-                # prev_move = None
-            if gameStarted == 1:
-                if k == ord('r'):
-                    computer_move_name = choice(['rock', 'paper', 'scissors'])
-                    winner = calculate_winner(user_move_name, computer_move_name)
-                    if (winner == 'User'):
-                        userScore += 1
-                        gameStarted = 0
-                    elif (winner == 'Computer'):
-                        pcScore += 1
-                        gameStarted = 0
+    # if prev_move != user_move_name:
+    if gameReady == 1:
+        if user_move_name != "none" :
+            if (gameStarted == 1):
+                computer_move_name = choice(['rock', 'paper', 'scissors'])
+                winner = calculate_winner(user_move_name, computer_move_name)
+                if (winner == 'User'):
+                    userScore += 1
+                    gameStarted = 0
+                elif (winner == 'Computer'):
+                    pcScore += 1
+                    gameStarted = 0
+                else:
+                    if ((user_move_name == 'start')):
+                        print('Do nothing')
+                    elif (user_move_name == 'end'):
+                        gameReady = 0
                     else:
                         tieScore += 1
                         gameStarted = 0
-                k = ''
+                    # k = ''
         else:
             computer_move_name = "none"
             winner = "Waiting..."
@@ -137,12 +142,20 @@ while True:
         frame[100:500, 800:1200] = icon
 
     cv2.imshow("Rock Paper Scissors", frame)
+    k = cv2.waitKey(10)
 
     # if user_move_name == 'end':
     #     print('Because of this')
     #     break
     if k == ord('q'):
         break
+    elif k == ord('r'):
+        gameStarted = 1
+    elif k == ord('w'):
+        gameStarted = 0
+    # elif k == ord('e'):
+    #     gameReady = 1
+    print(gameReady)
 
 cap.release()
 cv2.destroyAllWindows()
