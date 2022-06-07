@@ -12,7 +12,7 @@ First time run:
 3. Substitute the file venv/Lib/site-packages/keras_squeezenet/squeezenet.py for substitute/squeezenet.py
 
 Capture mode:
-- python src\gather_images.py ${rock, paper, scissors or none} ${number of captures}
+- python src\gather_images.py ${rock, paper, scissors, start, end or none} ${number of captures}
 - Press "o" to start capture.
 - Press "q" to exit.
 

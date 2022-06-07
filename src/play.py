@@ -6,6 +6,7 @@ from random import choice
 userScore = 0
 pcScore = 0
 tieScore = 0
+gameState = 'Sleep'
 
 REV_CLASS_MAP = {
     0: "rock",
@@ -59,6 +60,8 @@ def loadGame(game):
                 (850, 700), font, 2, (0, 0, 255), 4, game.LINE_AA)
     game.putText(frame, "Ties: " + str(tieScore),
                 (500, 700), font, 2, (0, 0, 255), 4, game.LINE_AA)
+    game.putText(frame, gameState,
+                (550, 300), font, 2, (0, 0, 255), 4, game.LINE_AA)
 
 def getUserMove(model):
     pred = model.predict(np.array([img]))
@@ -104,7 +107,9 @@ while True:
     # predict the move made
     user_move_name = getUserMove(model)
     if gameReady == 0 and user_move_name == 'start':
+        gameStarted = 0
         gameReady = 1
+        gameState = 'Awake'
     # predict the winner (human vs computer)
     # if prev_move != user_move_name:
     if gameReady == 1:
@@ -123,6 +128,7 @@ while True:
                         print('Do nothing')
                     elif (user_move_name == 'end'):
                         gameReady = 0
+                        gameState = 'Sleep'
                     else:
                         tieScore += 1
                         gameStarted = 0
