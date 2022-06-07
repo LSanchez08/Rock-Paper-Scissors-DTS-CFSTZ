@@ -14,7 +14,9 @@ CLASS_MAP = {
     "rock": 0,
     "paper": 1,
     "scissors": 2,
-    "none": 3
+    "none": 3,
+    "start": 4,
+    "end": 5
 }
 
 NUM_CLASSES = len(CLASS_MAP)

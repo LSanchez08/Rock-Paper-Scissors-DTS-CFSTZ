@@ -3,6 +3,9 @@
 First time run:
 1. Make sure to be on powershell or cmd as administrator(For windows).
 2. On root folder execute the following commands:
+  - pip install virtualenv
+  - Add to path
+  - Restart the computer
   - virtualenv venv
   - venv\Scripts\activate
   - pip install -r requirements.txt
